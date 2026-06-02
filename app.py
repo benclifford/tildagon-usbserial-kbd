@@ -42,6 +42,10 @@ class USBSerialKeyboardApp(App):
         e = k.modifiers['ENTER']
         await eventbus.emit_async(ButtonDownEvent(e))
         await eventbus.emit_async(ButtonUpEvent(e))
+      elif s == '\t':
+        e = k.modifiers['ESCAPE']
+        await eventbus.emit_async(ButtonDownEvent(e))
+        await eventbus.emit_async(ButtonUpEvent(e))
       elif s == '\x1b':
         print("begin control sequence")
         s = await sr.read(1)

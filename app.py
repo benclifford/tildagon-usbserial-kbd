@@ -29,10 +29,14 @@ class USBSerialKeyboardApp(App):
         await eventbus.emit_async(ButtonUpEvent(e))
         print(f"emitted letter: {e}")
       elif s in k.numbers:
-        await eventbus.emit_async(k.numbers[s])
+        e = k.numbers[s]
+        await eventbus.emit_async(ButtonDownEvent(e))
+        await eventbus.emit_async(ButtonUpEvent(e))
         print("emitted number")
       elif s in k.symbols:
-        await eventbus.emit_async(k.symbols[s])
+        e = k.symbols[s]
+        await eventbus.emit_async(ButtonDownEvent(e))
+        await eventbus.emit_async(ButtonUpEvent(e))
         print("emitted symbol")
       else:
         print("unknown key")

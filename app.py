@@ -38,6 +38,18 @@ class USBSerialKeyboardApp(App):
         await eventbus.emit_async(ButtonDownEvent(e))
         await eventbus.emit_async(ButtonUpEvent(e))
         print("emitted symbol")
+      elif s == '\x1b':
+        print("begin control sequence")
+        s = await sr.read(2)
+        if s[0] == '[':
+          print("recognised next step in control sequence")
+          if s[1] == 'A':
+            e = k.modifiers['UP']
+            await eventbus.emit_async(ButtonDownEvent(e))
+            await eventbus.emit_async(ButtonUpEvent(e))
+        else:
+          print("unknown ESCape. probably generating mess.")
+        
       else:
         print("unknown key")
 

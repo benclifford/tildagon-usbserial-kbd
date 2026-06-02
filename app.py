@@ -38,24 +38,30 @@ class USBSerialKeyboardApp(App):
         await eventbus.emit_async(ButtonDownEvent(e))
         await eventbus.emit_async(ButtonUpEvent(e))
         print("emitted symbol")
+      elif s == '\n':
+        e = k.modifiers['ENTER']
+        await eventbus.emit_async(ButtonDownEvent(e))
+        await eventbus.emit_async(ButtonUpEvent(e))
       elif s == '\x1b':
         print("begin control sequence")
-        s = await sr.read(2)
-        if s[0] == '[':
+        s = await sr.read(1)
+        if s == '[':
           print("recognised next step in control sequence")
-          if s[1] == 'A':
+          print("reading next step")
+          s = await sr.read(1)
+          if s == 'A':
             e = k.modifiers['UP']
             await eventbus.emit_async(ButtonDownEvent(e))
             await eventbus.emit_async(ButtonUpEvent(e))
-          elif s[1] == 'B':
+          elif s == 'B':
             e = k.modifiers['DOWN']
             await eventbus.emit_async(ButtonDownEvent(e))
             await eventbus.emit_async(ButtonUpEvent(e))
-          elif s[1] == 'C':
+          elif s == 'C':
             e = k.modifiers['RIGHT']
             await eventbus.emit_async(ButtonDownEvent(e))
             await eventbus.emit_async(ButtonUpEvent(e))
-          elif s[1] == 'D':
+          elif s == 'D':
             e = k.modifiers['LEFT']
             await eventbus.emit_async(ButtonDownEvent(e))
             await eventbus.emit_async(ButtonUpEvent(e))

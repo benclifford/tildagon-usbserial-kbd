@@ -47,6 +47,18 @@ class USBSerialKeyboardApp(App):
             e = k.modifiers['UP']
             await eventbus.emit_async(ButtonDownEvent(e))
             await eventbus.emit_async(ButtonUpEvent(e))
+          elif s[1] == 'B':
+            e = k.modifiers['DOWN']
+            await eventbus.emit_async(ButtonDownEvent(e))
+            await eventbus.emit_async(ButtonUpEvent(e))
+          elif s[1] == 'C':
+            e = k.modifiers['RIGHT']
+            await eventbus.emit_async(ButtonDownEvent(e))
+            await eventbus.emit_async(ButtonUpEvent(e))
+          elif s[1] == 'D':
+            e = k.modifiers['LEFT']
+            await eventbus.emit_async(ButtonDownEvent(e))
+            await eventbus.emit_async(ButtonUpEvent(e))
         else:
           print("unknown ESCape. probably generating mess.")
         

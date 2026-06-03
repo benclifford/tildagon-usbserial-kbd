@@ -1,6 +1,6 @@
 [app]
 # The name of your app as displayed in the menu
-name = "USB Serial Kbd"
+name = "USBSerial Kbd"
 
 # The submenu where your app should appear.
 # One of: "Badge", "Music", "Media", "Apps", "Games", "Background"
@@ -37,4 +37,4 @@ description = "Use mpremote/usb serial port as keyboard"
 # increased, we interpret this as a new version being released.
 #
 # Version number must be an string!
-version = "0.0.2"
+version = "0.0.4"

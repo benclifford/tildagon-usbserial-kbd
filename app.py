@@ -11,13 +11,21 @@ class USBSerialKeyboardApp(App):
 
   def __init__(self):
     print("USBSerialKeyboardApp: starting")
+    super().__init__()
 
   async def run(self, render_update):
     print("USBSerialKeyboardApp: run")
-    self.t = asyncio.create_task(self.body())
-    self.minimise()
+    while True:
+        print("Minimising")
+        await render_update()
+        self.minimise()
+        print("... sleeping")
+        await asyncio.sleep(0.05)  # yield to scheduler
+        # ... which should stop this thread until
+        # the next time we are accidentally
+        # foregrounded.
 
-  async def body(self):
+  async def background_task(self):
     sr = asyncio.StreamReader(sys.stdin)
     while True:
       s = await sr.read(1)
